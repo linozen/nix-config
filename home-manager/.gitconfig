@@ -1,0 +1,6 @@
+[user]
+	email = linus@sehn.dev
+	name = linozen
+
+[includeIf "gitdir:~/Source/fsfe.org/"]
+    path = ~/Source/fsfe.org/.gitconfig
