@@ -11,7 +11,7 @@ probably don't want to use because:
 ## Features
 
 - automated partitioning based on [disko](https://github.com/nix-community/disko), see [config](./nixos/disko-config.nix)
-- Self-erasing `/boot` and `/home` partitions using [impermanence](https://github.com/nix-community/impermanence). see [config](./nixos/impermanence.nix)
+- Self-erasing `/root` and `/home` partitions using [impermanence](https://github.com/nix-community/impermanence). see [config](./nixos/impermanence.nix)
 - Secret management based on [agenix](https://github.com/ryantm/agenix)
 - Custom Neovim config based on [NixVim](https://github.com/nix-community/nixvim) that lives in its [own flake](https://github.com/linozen/nvim-flake) for easy installation in other systems (e.g. WSL on a Windows machine).
 
