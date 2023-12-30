@@ -149,12 +149,15 @@
   age.identityPaths = [/persist/home/lino/.ssh/id_ed25519];
   age.secrets.passwordHash.file = ../secrets/passwordHash.age;
 
+  programs.fish.enable = true;
+
   users.mutableUsers = false;
   users.users = {
     lino = {
       hashedPasswordFile = config.age.secrets.passwordHash.path;
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager"];
+      shell = pkgs.fish;
     };
   };
 
