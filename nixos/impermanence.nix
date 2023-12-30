@@ -177,6 +177,8 @@
         "/.local/share/z"
         ## Neovim
         "/.local/share/nvim"
+        ## Anki
+        "/.local/share/Anki2"
         ## MS Teams
         "/.config/teams-for-linux"
 
