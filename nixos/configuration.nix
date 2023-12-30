@@ -107,6 +107,16 @@
     enable = true;
   };
 
+  services.btrbk.instances."btrbk" = {
+    onCalendar = "*:0/10";
+    settings = {
+      snapshot_preserve_min = "2d";
+      volume."/" = {
+        subvolume = "/home";
+        snapshot_dir = "/snapshots";
+      };
+    };
+  };
   age.identityPaths = [/persist/home/lino/.ssh/id_ed25519];
   age.secrets.passwordHash.file = ../secrets/passwordHash.age;
 
