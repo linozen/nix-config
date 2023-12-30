@@ -49,6 +49,10 @@
                       mountpoint = "/nix";
                       mountOptions = ["compress=zstd" "noatime"];
                     };
+                    "/snapshots" = {
+                      mountpoint = "/snapshots";
+                      mountOptions = ["compress=zstd" "noatime"];
+                    };
                     "/swap" = {
                       mountpoint = "/.swapvol";
                       swap.swapfile.size = "2G";
@@ -63,6 +67,7 @@
     };
   };
   fileSystems."/nix".neededForBoot = true;
-  fileSystems."/persist".neededForBoot = true;
   fileSystems."/home".neededForBoot = true;
+  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/snapshots".neededForBoot = true;
 }
