@@ -60,26 +60,43 @@
     bitwarden
     bitwarden-cli
     signal-desktop
+    innernet
     dconf2nix
     gocryptfs
-    gnome.gnome-tweaks
+    btrfs-assistant
+    tilix
+    unstable.anki
+    unstable.gnome.gnome-tweaks
+    unstable.gnomeExtensions.espresso
+    unstable.gnomeExtensions.clipboard-indicator
+    unstable.gnomeExtensions.tiling-assistant
+    unstable.teams-for-linux
+    zotero
+    pika-backup
     # JavaScript / TypeScript
     corepack
     # Formatters
     alejandra
+    nodePackages.prettier
+    # Terminal app
     ripgrep
+    fzf
     # Fonts
     inter
     (nerdfonts.override {fonts = ["Iosevka"];})
+    papirus-icon-theme
     # NixVim from https://github.com/linozen/nvim-flake
     inputs.nixvim.packages."${system}".default
     # agenix
     inputs.agenix.packages."${system}".default
   ];
 
-  
   home.file.".ssh/config".source = ./ssh.conf;
   home.file.".gitconfig".source = ./.gitconfig;
+  home.file.".config/tilix/schemes/tokyonight.json".source = ./tilix-tokyonight.json;
+  home.file.".config/pnpm/rc".text = ''
+    store-dir=/home/lino/.local/share/pnpm/
+  '';
 
   programs.bash = {
     enable = true;
