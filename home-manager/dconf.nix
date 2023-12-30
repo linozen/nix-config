@@ -44,6 +44,10 @@ with lib.hm.gvariant;
       terminal-page-down = "disabled";
       terminal-page-up = "disabled";
       terminal-paste = "<Primary><Shift>v";
+      win-reorder-next-session = "<Shift><Alt>j";
+      win-reorder-previous-session = "<Shift><Alt>k";
+      win-switch-to-next-session = "<Alt>j";
+      win-switch-to-previous-session = "<Alt>k";
     };
 
     "com/gexperts/Tilix/profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d" = {
@@ -119,7 +123,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "gnome-power-panel" "org-gnome-console" "firefox" "org-gnome-characters" "thunderbird" ];
+      application-children = [ "gnome-power-panel" "org-gnome-console" "firefox" "org-gnome-characters" "thunderbird" "anki" ];
+    };
+
+    "org/gnome/desktop/notifications/application/anki" = {
+      application-id = "anki.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
