@@ -146,6 +146,8 @@
       };
     };
   };
+  virtualisation.docker.enable = true;
+
   age.identityPaths = [/persist/home/lino/.ssh/id_ed25519];
   age.secrets.passwordHash.file = ../secrets/passwordHash.age;
 
