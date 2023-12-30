@@ -81,6 +81,7 @@
 
   networking.hostName = "leto";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.useDHCP = false;
   services.resolved.enable = true;
 
   # Enable tailscale
