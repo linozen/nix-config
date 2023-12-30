@@ -81,6 +81,34 @@
 
   networking.hostName = "leto";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  services.resolved.enable = true;
+
+  # Enable tailscale
+  services.tailscale.enable = true;
+  networking.nameservers = ["100.100.100.100" "9.9.9.9" "149.112.112.112"];
+  networking.search = ["wolf-map.ts.net"];
+
+  # Mount Synology NFS shares
+  fileSystems."/home/lino/Syno/video" = {
+    device = "100.94.222.31:/volume1/video";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
+  };
+  fileSystems."/home/lino/Syno/audio" = {
+    device = "100.94.222.31:/volume1/audio";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
+  };
+  fileSystems."/home/lino/Syno/archive" = {
+    device = "100.94.222.31:/volume1/archive";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
+  };
+  fileSystems."/home/lino/Syno/pictures" = {
+    device = "100.94.222.31:/volume1/pictures";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
