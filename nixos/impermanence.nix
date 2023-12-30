@@ -5,20 +5,6 @@
 }: {
   # Reset both /home and /root
   boot.initrd.postDeviceCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount -o subvol=/ /dev/mapper/crypted /btrfs_tmp
-
-    timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-dT%H:%M:%S")
-    if [[ -e /btrfs_tmp/root ]]; then
-        mkdir -p /btrfs_tmp/old_roots
-        mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-    fi
-
-    if [[ -e /btrfs_tmp/home ]]; then
-        mkdir -p /btrfs_tmp/old_homes
-        mv /btrfs_tmp/home "/btrfs_tmp/old_homes/$timestamp"
-    fi
-
     delete_subvolume_recursively() {
         IFS=$'\n'
         for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
@@ -27,15 +13,41 @@
         btrfs subvolume delete "$1"
     }
 
+    # Mount decrypted drive
+    mkdir /btrfs_tmp
+    mount -o subvol=/ /dev/mapper/crypted /btrfs_tmp
+
+    # Move root subvolume(s) into /old_roots
+    if [[ -e /btrfs_tmp/root ]]; then
+        timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-dT%H:%M:%S")
+        mkdir -p /btrfs_tmp/old_roots
+        mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+    fi
+
+    # Delete root subvolumes older 30 days
     for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
         delete_subvolume_recursively "$i"
     done
-    for i in $(find /btrfs_tmp/old_homes/ -maxdepth 1 -mtime +30); do
-        delete_subvolume_recursively "$i"
-    done
 
+    # Delete /home if it exists
+    if [[ -e /btrfs_tmp/home ]]; then
+      btrfs subvolume delete /btrfs_tmp/home
+    fi
+
+    # Create new empty boot and home subvolumes
     btrfs subvolume create /btrfs_tmp/root
     btrfs subvolume create /btrfs_tmp/home
+
+    # Create a blank subvolume if it does not exist
+    if [[ ! -e /btrfs_tmp/blank ]]; then
+      btrfs subvolume snapshot -r /btrfs_tmp/root /btrfs_tmp/blank
+    fi
+
+    # Create a snapshots volume if it does not exist
+    if [[ ! -e /btrfs_tmp/snapshots ]]; then
+      btrfs subvolume create /btrfs_tmp/snapshots
+    fi
+
     umount /btrfs_tmp
   '';
   environment.systemPackages = let
@@ -47,7 +59,7 @@
 
       set -euo pipefail
 
-      OLD_TRANSID=$(sudo btrfs subvolume find-new $_tmp_root/root-blank 9999999)
+      OLD_TRANSID=$(sudo btrfs subvolume find-new $_tmp_root/blank 9999999)
       OLD_TRANSID=''${OLD_TRANSID#transid marker was }
 
       sudo btrfs subvolume find-new "$_tmp_root/root" "$OLD_TRANSID" | sed '$d' | cut -f17- -d' ' | sort | uniq |
@@ -72,7 +84,7 @@
 
       set -euo pipefail
 
-      OLD_TRANSID=$(sudo btrfs subvolume find-new $_tmp_root/root-blank 9999999)
+      OLD_TRANSID=$(sudo btrfs subvolume find-new $_tmp_root/blank 9999999)
       OLD_TRANSID=''${OLD_TRANSID#transid marker was }
 
       sudo btrfs subvolume find-new "$_tmp_root/home" "$OLD_TRANSID" | sed '$d' | cut -f17- -d' ' | sort | uniq |
@@ -100,9 +112,14 @@
     directories = [
       "/var/log"
       "/var/lib/bluetooth"
+      "/var/lib/tailscale"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
+      "/etc/innernet"
+      {
+        directory = "/etc/NetworkManager/system-connections";
+        mode = "0700";
+      }
       {
         directory = "/var/lib/colord";
         user = "colord";
@@ -131,10 +148,13 @@
         "Pictures"
         "Documents"
         "Videos"
+        "Syno"
+        "Zotero"
+        ".zotero"
 
         # Applications
-        ## Git
-        ".config/git"
+        ## pnpm
+        ".local/share/pnpm"
         ## Firefox
         ".mozilla"
         ## Thunderbird
@@ -144,6 +164,8 @@
         }
         ## Bitwarden
         ".config/Bitwarden"
+        ## Bitwarden
+        ".config/pika-backup"
         ## Signal
         {
           directory = ".config/Signal";
@@ -151,6 +173,12 @@
         }
         ## Gnome Text Editor
         ".local/share/org.gnome.TextEditor"
+        ## Z
+        "/.local/share/z"
+        ## Neovim
+        "/.local/share/nvim"
+        ## MS Teams
+        "/.config/teams-for-linux"
 
         # home-manager
         ".local/state/home-manager"
@@ -179,13 +207,15 @@
           mode = "0700";
         }
         {
-          directory = ".password-store";
+          directory = ".local/share/password-store";
           mode = "0700";
         }
       ];
       files = [
         # Gnome monitor configuration
         ".config/monitors.xml"
+        ## Fish history
+        ".local/share/fish/fish_history"
       ];
     };
   };
