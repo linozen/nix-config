@@ -30,6 +30,8 @@
     ./disko-config.nix
     # Impermanene config
     ./impermanence.nix
+# 
+    ./vpn.nix
   ];
 
   nixpkgs = {
@@ -80,14 +82,10 @@
   };
 
   networking.hostName = "leto";
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  networking.useDHCP = false;
+  networking.networkmanager.enable = true;
   services.resolved.enable = true;
 
-  # Enable tailscale
-  services.tailscale.enable = true;
-  networking.nameservers = ["100.100.100.100" "9.9.9.9" "149.112.112.112"];
-  networking.search = ["wolf-map.ts.net"];
+
 
   # Mount Synology NFS shares
   fileSystems."/home/lino/Syno/video" = {

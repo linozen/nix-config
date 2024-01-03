@@ -116,6 +116,7 @@
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/etc/innernet"
+      "/etc/mullvad-vpn"
       {
         directory = "/etc/NetworkManager/system-connections";
         mode = "0700";
