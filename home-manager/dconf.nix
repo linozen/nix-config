@@ -76,8 +76,12 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 960 600 ];
     };
 
+    "org/gnome/calendar" = {
+      active-view = "month";
+    };
+
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
+      last-panel = "datetime";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -104,6 +108,10 @@ with lib.hm.gvariant;
       translate = true;
     };
 
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
+
     "org/gnome/desktop/input-sources" = {
       mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
       sources = [ (mkTuple [ "xkb" "gb" ]) ];
@@ -111,6 +119,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/interface" = {
+      clock-show-seconds = true;
+      clock-show-weekday = true;
       color-scheme = "prefer-dark";
       document-font-name = "Inter 11";
       font-antialiasing = "grayscale";
@@ -123,7 +133,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "gnome-power-panel" "org-gnome-console" "firefox" "org-gnome-characters" "thunderbird" "anki" ];
+      application-children = [ "gnome-power-panel" "org-gnome-console" "firefox" "org-gnome-characters" "thunderbird" "anki" "org-gnome-world-pikabackup-monitor" "gnome-network-panel" ];
     };
 
     "org/gnome/desktop/notifications/application/anki" = {
@@ -132,6 +142,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/firefox" = {
       application-id = "firefox.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/gnome-network-panel" = {
+      application-id = "gnome-network-panel.desktop";
     };
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
@@ -144,6 +158,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-console" = {
       application-id = "org.gnome.Console.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-world-pikabackup-monitor" = {
+      application-id = "org.gnome.World.PikaBackup.Monitor.desktop";
     };
 
     "org/gnome/desktop/notifications/application/thunderbird" = {
@@ -191,6 +209,57 @@ with lib.hm.gvariant;
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/evolution" = {
+      default-address-book = "70d42dde091deca379e5172bf0ab994142d6daee";
+      default-calendar = "4ed45fbf8c68f5d1bfcf37893fc29af2a0bf22d8";
+      version = "3.50.2";
+    };
+
+    "org/gnome/evolution/addressbook" = {
+      primary-addressbook = "70d42dde091deca379e5172bf0ab994142d6daee";
+    };
+
+    "org/gnome/evolution/calendar" = {
+      allow-direct-summary-edit = false;
+      confirm-purge = true;
+      date-navigator-pane-position = 166;
+      editor-show-timezone = false;
+      prefer-new-item = "event-new";
+      primary-calendar = "4ed45fbf8c68f5d1bfcf37893fc29af2a0bf22d8";
+      primary-memos = "system-memo-list";
+      primary-tasks = "system-task-list";
+      tag-vpane-position = 1.436781609195359e-3;
+      time-divisions = 30;
+      week-start-day-name = "monday";
+      work-day-friday = true;
+      work-day-monday = true;
+      work-day-saturday = false;
+      work-day-sunday = false;
+      work-day-thursday = true;
+      work-day-tuesday = true;
+      work-day-wednesday = true;
+    };
+
+    "org/gnome/evolution/mail" = {
+      browser-close-on-reply-policy = "ask";
+      forward-style-name = "attached";
+      image-loading-policy = "never";
+      paned-size = 1259154;
+      reply-style-name = "quoted";
+      to-do-bar-width = 1150000;
+    };
+
+    "org/gnome/evolution/shell" = {
+      default-component-id = "calendar";
+      folder-bar-width = 290;
+    };
+
+    "org/gnome/evolution/shell/window" = {
+      maximized = true;
+      x = 0;
+      y = 0;
     };
 
     "org/gnome/gnome-system-monitor" = {
@@ -256,22 +325,28 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
-      enabled-extensions = [ "clipboard-indicator@tudmotu.com" "espresso@coadmunkee.github.com" "tiling-assistant@leleat-on-github" ];
+      disabled-extensions = [];
+      enabled-extensions = [ "clipboard-indicator@tudmotu.com" "espresso@coadmunkee.github.com" "tiling-assistant@leleat-on-github" "clipboard-history@alexsaveau.dev" "appindicatorsupport@rgcjonas.gmail.com" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "45.2";
+    };
+
+    "org/gnome/shell/extensions/clipboard-history" = {
+      paste-on-selection = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
       display-mode = 0;
       history-size = 30;
       move-item-first = true;
+      prev-entry = [ "<Control><Alt>c" ];
       preview-size = 60;
       strip-text = true;
     };
 
     "org/gnome/shell/extensions/espresso" = {
       has-battery = true;
-      user-enabled = true;
+      user-enabled = false;
     };
 
     "org/gnome/shell/extensions/tiling-assistant" = {
@@ -325,6 +400,10 @@ with lib.hm.gvariant;
       show-extensions-notice = false;
     };
 
+    "org/gtk/gtk4/settings/color-chooser" = {
+      selected-color = mkTuple [ true 0.8627451062202454 0.5411764979362488 0.8666666746139526 1.0 ];
+    };
+
     "org/gtk/gtk4/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
@@ -338,6 +417,10 @@ with lib.hm.gvariant;
       type-format = "category";
       view-type = "list";
       window-size = mkTuple [ 815 366 ];
+    };
+
+    "org/gtk/settings/color-chooser" = {
+      selected-color = mkTuple [ true 0.6 0.7568627450980392 0.9450980392156862 1.0 ];
     };
 
   };
