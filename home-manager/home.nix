@@ -28,6 +28,9 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
 
+      # VSCodium Extensions
+      inputs.nix-vscode-extensions.overlays.default
+
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -195,6 +198,16 @@
         disabled = true;
       };
     };
+  };
+
+  # VSCode
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-marketplace; [
+      # Gotta at least know what the robots are capable of
+      github.copilot
+      github.copilot-chat
+    ];
   };
 
   # Enable services with home-manager integration
