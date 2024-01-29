@@ -203,7 +203,7 @@
           mode = "0700";
         }
         ".cache/tracker3"
-# Podman 
+        # Podman
         "~/.local/share/containers"
         # YubiKeys
         {
