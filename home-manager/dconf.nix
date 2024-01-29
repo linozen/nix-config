@@ -81,7 +81,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "datetime";
+      last-panel = "keyboard";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -201,10 +201,25 @@ with lib.hm.gvariant;
       switch-applications-backward = [ "<Shift><Alt>Tab" ];
       switch-group = [ "<Alt>grave" ];
       switch-group-backward = [ "<Shift><Alt>grave" ];
+      unmaximize = [];
     };
 
     "org/gnome/desktop/wm/preferences" = {
       titlebar-font = "Inter Medium 10";
+    };
+
+    "org/gnome/evince/default" = {
+      continuous = true;
+      dual-page = false;
+      dual-page-odd-left = false;
+      enable-spellchecking = true;
+      fullscreen = false;
+      inverted-colors = false;
+      show-sidebar = true;
+      sidebar-page = "thumbnails";
+      sidebar-size = 132;
+      sizing-mode = "automatic";
+      window-ratio = mkTuple [ 0.712657 1.007861 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -230,7 +245,7 @@ with lib.hm.gvariant;
       primary-calendar = "4ed45fbf8c68f5d1bfcf37893fc29af2a0bf22d8";
       primary-memos = "system-memo-list";
       primary-tasks = "system-task-list";
-      tag-vpane-position = 1.436781609195359e-3;
+      tag-vpane-position = 1.437e-3;
       time-divisions = 30;
       week-start-day-name = "monday";
       work-day-friday = true;
@@ -282,6 +297,31 @@ with lib.hm.gvariant;
       columns-order = [ 0 1 2 3 4 6 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ];
       sort-col = 15;
       sort-order = 0;
+    };
+
+    "org/gnome/gthumb/browser" = {
+      folder-tree-sort-inverse = false;
+      folder-tree-sort-type = "name";
+      fullscreen-sidebar = "hidden";
+      fullscreen-thumbnails-visible = false;
+      maximized = true;
+      sidebar-sections = [ "GthFileProperties:expanded" "GthFileComment:expanded" "GthFileDetails:expanded" "GthImageHistogram:expanded" ];
+      sidebar-visible = true;
+      sort-inverse = false;
+      sort-type = "file::mtime";
+      startup-current-file = "file:///home/lino/Downloads/logo.svg";
+      startup-location = "file:///home/lino/Downloads";
+      statusbar-visible = true;
+      thumbnail-list-visible = true;
+      viewer-sidebar = "hidden";
+    };
+
+    "org/gnome/gthumb/data-migration" = {
+      catalogs-2-10 = true;
+    };
+
+    "org/gnome/gthumb/general" = {
+      active-extensions = [ "23hq" "bookmarks" "burn_disc" "catalogs" "change_date" "comments" "contact_sheet" "convert_format" "desktop_background" "edit_metadata" "exiv2_tools" "file_manager" "find_duplicates" "flicker" "gstreamer_tools" "gstreamer_utils" "image_print" "image_rotation" "importer" "jpeg_utils" "list_tools" "oauth" "photo_importer" "raw_files" "red_eye_removal" "rename_series" "resize_images" "search" "selections" "slideshow" "terminal" "webalbums" ];
     };
 
     "org/gnome/mutter" = {
@@ -366,7 +406,6 @@ with lib.hm.gvariant;
       enable-advanced-experimental-features = true;
       import-layout-examples = false;
       last-version-installed = 44;
-      restore-window = [];
       search-popup-layout = [ "<Shift><Alt>l" ];
       tile-bottom-half = [ "<Shift><Alt>s" ];
       tile-bottom-half-ignore-ta = [];
@@ -392,6 +431,10 @@ with lib.hm.gvariant;
       toggle-tiling-popup = [];
     };
 
+    "org/gnome/shell/keybindings" = {
+      show-screenshot-ui = [ "<Shift><Alt>4" ];
+    };
+
     "org/gnome/shell/world-clocks" = {
       locations = [];
     };
@@ -401,7 +444,7 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
-      selected-color = mkTuple [ true 0.8627451062202454 0.5411764979362488 0.8666666746139526 1.0 ];
+      selected-color = mkTuple [ true 0.862745 0.541176 0.866667 1.0 ];
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
@@ -420,7 +463,22 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/settings/color-chooser" = {
-      selected-color = mkTuple [ true 0.6 0.7568627450980392 0.9450980392156862 1.0 ];
+      selected-color = mkTuple [ true 0.6 0.756863 0.945098 1.0 ];
+    };
+
+    "org/gtk/settings/file-chooser" = {
+      date-format = "regular";
+      location-mode = "path-bar";
+      show-hidden = false;
+      show-size-column = true;
+      show-type-column = true;
+      sidebar-width = 153;
+      sort-column = "name";
+      sort-directories-first = false;
+      sort-order = "ascending";
+      type-format = "category";
+      window-position = mkTuple [ 26 23 ];
+      window-size = mkTuple [ 1054 790 ];
     };
 
   };
