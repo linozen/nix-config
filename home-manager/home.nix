@@ -60,6 +60,7 @@
   home.packages = with pkgs; [
     firefox
     thunderbird
+    chromium
     bitwarden
     bitwarden-cli
     signal-desktop
@@ -71,16 +72,25 @@
     unstable.anki
     unstable.gnome.gnome-tweaks
     unstable.gnomeExtensions.espresso
-    unstable.gnomeExtensions.clipboard-indicator
+    unstable.gnomeExtensions.clipboard-history
     unstable.gnomeExtensions.tiling-assistant
+    unstable.gnomeExtensions.appindicator
     unstable.teams-for-linux
     zotero
     pika-backup
+    inkscape
+    gthumb
+    libreoffice
+    pdfarranger
     # JavaScript / TypeScript
+    nodejs
     corepack
     # Formatters
     alejandra
     nodePackages.prettier
+    black
+    ruff
+    element-desktop
     # Terminal app
     ripgrep
     fzf
@@ -115,6 +125,11 @@
   programs.home-manager.enable = true;
   programs.git.enable = true;
   programs.password-store.enable = true;
+  programs.direnv = {
+    enable = true;
+    # enableFishIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
   programs.fish = {
     enable = true;
     plugins = [
@@ -128,7 +143,7 @@
       }
       {
         name = "fzf";
-        src = pkgs.fishPlugins.z.src;
+        src = pkgs.fishPlugins.fzf.src;
       }
       {
         name = "sponge";
@@ -138,6 +153,7 @@
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
       fenv source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" > /dev/null
+      set -U DOCKER_HOST unix://$XDG_RUNTIME_DIR/docker.sock
 
       # TokyoNight Color Palette
       set -l foreground c0caf5
@@ -173,6 +189,10 @@
       set -g fish_pager_color_completion $foreground
       set -g fish_pager_color_description $comment
       set -g fish_pager_color_selected_background --background=$selection
+
+      # Aliases
+      abbr --add n nvim
+      abbr --add c code
     '';
   };
   programs.starship = {
@@ -195,6 +215,9 @@
         format = "via [node $version](bold green) ";
       };
       package = {
+        disabled = true;
+      };
+      docker_context = {
         disabled = true;
       };
     };
