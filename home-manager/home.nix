@@ -203,10 +203,45 @@
   # VSCode
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-marketplace; [
+    package = pkgs.unstable.vscode;
+    # Get the thing as reproducible as possible
+    # enableUpdateCheck = false;
+    # enableExtensionUpdateCheck = false;
+    # Otherwise icons fail to load
+    mutableExtensionsDir = true;
+    # Settings and keybindings are synced via GitHub
+    extensions = with pkgs; [
+      # Gotta have vim keybindings
+      vscode-marketplace.vscodevim.vim
       # Gotta at least know what the robots are capable of
-      github.copilot
-      github.copilot-chat
+      vscode-extensions.github.copilot
+      vscode-extensions.github.copilot-chat
+      # This is just too convenient sometimes
+      vscode-marketplace.ms-vscode-remote.remote-containers
+      vscode-marketplace.ms-vscode-remote.remote-ssh
+      vscode-marketplace.ms-vscode-remote.remote-ssh-edit
+      # Nix
+      vscode-marketplace.mkhl.direnv
+      vscode-marketplace.jnoortheen.nix-ide
+      # Python
+      vscode-marketplace.ms-python.python
+      vscode-marketplace.ms-toolsai.jupyter
+      vscode-marketplace.ms-toolsai.jupyter-renderers
+      vscode-marketplace.ms-toolsai.jupyter-keymap
+      vscode-marketplace.charliermarsh.ruff
+      # CSV
+      vscode-marketplace.mechatroner.rainbow-csv
+      # YAML
+      vscode-marketplace.redhat.vscode-yaml
+      # JavaScript & TypeScript
+      vscode-marketplace.bradlc.vscode-tailwindcss
+      vscode-marketplace.esbenp.prettier-vscode
+      vscode-marketplace.ms-playwright.playwright
+      # Theme and Icons
+      vscode-marketplace.enkia.tokyo-night
+      vscode-marketplace.antfu.icons-carbon
+      # Project manager
+      vscode-marketplace.alefragnani.project-manager
     ];
   };
 

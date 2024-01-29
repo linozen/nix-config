@@ -30,6 +30,8 @@
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
+    # Up-to-date VSCode extension
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions/d1f015cf54328b5c96a6f9d68f615f18ddac9264";
   };
 
   outputs = {
