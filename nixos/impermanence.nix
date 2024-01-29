@@ -113,6 +113,7 @@
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/tailscale"
+      "/var/lib/docker"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
       "/etc/innernet"
@@ -193,7 +194,8 @@
           mode = "0700";
         }
         ".cache/tracker3"
-
+# Podman 
+        "~/.local/share/containers"
         # YubiKeys
         {
           directory = ".yubico";
