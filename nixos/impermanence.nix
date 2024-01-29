@@ -138,56 +138,65 @@
     ];
     users.lino = {
       directories = [
-        # Source code
+        # Code
         "Source"
-
         # Exocortex
         "Exocortex"
-
-        # Various folders in /home/lino
+        # Default
         "Downloads"
         "Music"
         "Pictures"
         "Documents"
         "Videos"
+        # Synology share
         "Syno"
+        # Zotero
         "Zotero"
         ".zotero"
-
-        # Applications
-        ## pnpm
+        # pnpm
         ".local/share/pnpm"
-        ## Firefox
+        # pypoetry
+        ".cache/pypoetry"
+        # Firefox
         ".mozilla"
-        ## Thunderbird
+        # Thunderbird
         {
           directory = ".thunderbird";
           mode = "0700";
         }
-        ## Bitwarden
+        # home-manager, cachix, direnv
+        ".local/state/home-manager"
+        ".local/state/nix"
+        ".local/share/nix"
+        ".local/share/direnv"
+        # Gnome Text Editor
+        ".local/share/org.gnome.TextEditor"
+        # Z
+        ".local/share/z"
+        # Neovim
+        ".local/share/nvim"
+        # Anki
+        ".local/share/Anki2"
+        ## Python / Poerty
+        ".local/share/virtualenv"
+        ## Evolution (only for CalDav and CardDav)
+        ".local/share/evolution"
+        ".config/evolution"
+        ## Element
+        ".config/Element"
+        ## VSCode
+        ".config/Code"
+        ## MS Teams
+        ".config/teams-for-linux"
+        # Bitwarden
         ".config/Bitwarden"
-        ## Bitwarden
+        # Bitwarden
         ".config/pika-backup"
-        ## Signal
+        # Signal
         {
           directory = ".config/Signal";
           mode = "0700";
         }
-        ## Gnome Text Editor
-        ".local/share/org.gnome.TextEditor"
-        ## Z
-        "/.local/share/z"
-        ## Neovim
-        "/.local/share/nvim"
-        ## Anki
-        "/.local/share/Anki2"
-        ## MS Teams
-        "/.config/teams-for-linux"
-
-        # home-manager
-        ".local/state/home-manager"
-        ".local/state/nix"
-
         # Gnome
         {
           directory = ".local/share/keyrings";
@@ -201,7 +210,6 @@
           directory = ".yubico";
           mode = "0700";
         }
-
         # SSH, GnuPG and pass
         {
           directory = ".gnupg";
