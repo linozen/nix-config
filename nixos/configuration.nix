@@ -30,7 +30,7 @@
     ./disko-config.nix
     # Impermanene config
     ./impermanence.nix
-# 
+    # VPN config
     ./vpn.nix
   ];
 
