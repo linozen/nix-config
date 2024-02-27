@@ -204,7 +204,7 @@
         }
         ".cache/tracker3"
         # Podman
-        "~/.local/share/containers"
+        ".local/share/containers"
         # YubiKeys
         {
           directory = ".yubico";
@@ -227,7 +227,7 @@
       files = [
         # Gnome monitor configuration
         ".config/monitors.xml"
-        ## Fish history
+        # Fish history
         ".local/share/fish/fish_history"
       ];
     };
