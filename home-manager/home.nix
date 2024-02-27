@@ -60,6 +60,7 @@
   home.packages = with pkgs; [
     firefox
     thunderbird
+    textsnatcher
     chromium
     bitwarden
     bitwarden-cli
@@ -69,6 +70,7 @@
     gocryptfs
     btrfs-assistant
     tilix
+    gnome.gnome-terminal
     unstable.anki
     unstable.gnome.gnome-tweaks
     unstable.gnomeExtensions.espresso
@@ -82,6 +84,8 @@
     gthumb
     libreoffice
     pdfarranger
+    # Music
+    sublime-music
     # JavaScript / TypeScript
     nodejs
     corepack
@@ -98,6 +102,10 @@
     inter
     (nerdfonts.override {fonts = ["Iosevka"];})
     papirus-icon-theme
+    #
+    trash-cli
+    joshuto
+    jrnl
     # NixVim from https://github.com/linozen/nvim-flake
     inputs.nixvim.packages."${system}".default
     # agenix
@@ -106,7 +114,9 @@
 
   home.file.".ssh/config".source = ./ssh.conf;
   home.file.".gitconfig".source = ./.gitconfig;
+  home.file.".gitconfig.fsfe".source = ./.gitconfig.fsfe;
   home.file.".config/tilix/schemes/tokyonight.json".source = ./tilix-tokyonight.json;
+  home.file.".config/jrnl/jrnl.yaml".source = ./jrnl.yaml;
   home.file.".config/pnpm/rc".text = ''
     store-dir=/home/lino/.local/share/pnpm/
   '';
@@ -119,6 +129,31 @@
   };
   home.sessionVariables = {
     EDITOR = "nvim";
+  };
+
+  # xdg mime
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+    };
+    associations.added = {
+      # PDF
+      "application/pdf" = ["org.gnome.Evince.desktop"];
+      # (X)HTML
+      "text/html" = ["firefox.desktop"];
+      "application/xhtml+xml" = ["firefox.desktop"];
+      "x-scheme-handler" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+    };
+    defaultApplications = {
+      # PDF
+      "application/pdf" = ["org.gnome.Evince.desktop"];
+      # (X)HTML
+      "text/html" = ["firefox.desktop"];
+      "application/xhtml+xml" = ["firefox.desktop"];
+      "x-scheme-handler" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+    };
   };
 
   # Enable programs with home-manager integration
@@ -195,6 +230,10 @@
       abbr --add c code
     '';
   };
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
@@ -237,8 +276,8 @@
       # Gotta have vim keybindings
       vscode-marketplace.vscodevim.vim
       # Gotta at least know what the robots are capable of
-      vscode-extensions.github.copilot
-      vscode-extensions.github.copilot-chat
+      unstable.vscode-extensions.github.copilot
+      unstable.vscode-extensions.github.copilot-chat
       # This is just too convenient sometimes
       vscode-marketplace.ms-vscode-remote.remote-containers
       vscode-marketplace.ms-vscode-remote.remote-ssh
@@ -266,6 +305,11 @@
       # Project manager
       vscode-marketplace.alefragnani.project-manager
     ];
+  };
+
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
   };
 
   # Enable services with home-manager integration
