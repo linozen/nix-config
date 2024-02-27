@@ -81,7 +81,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
+      last-panel = "power";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -362,6 +362,10 @@ with lib.hm.gvariant;
       binding = "<Super>t";
       command = "tilix";
       name = "Launch Tilix";
+    };
+
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "nothing";
     };
 
     "org/gnome/shell" = {
