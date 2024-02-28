@@ -135,24 +135,33 @@
   xdg.mimeApps = {
     enable = true;
     associations.added = {
-    };
-    associations.added = {
       # PDF
       "application/pdf" = ["org.gnome.Evince.desktop"];
       # (X)HTML
       "text/html" = ["firefox.desktop"];
       "application/xhtml+xml" = ["firefox.desktop"];
+      "application/x-extension-htm" = ["firefox.desktop"];
+      "application/x-extension-html" = ["firefox.desktop"];
+      "application/x-extension-shtml" = ["firefox.desktop"];
+      "application/x-extension-xhtml" = ["firefox.desktop"];
+      "application/x-extension-xht" = ["firefox.desktop"];
       "x-scheme-handler" = ["firefox.desktop"];
       "x-scheme-handler/https" = ["firefox.desktop"];
+      "x-scheme-handler/chrome" = ["firefox.desktop"];
     };
     defaultApplications = {
       # PDF
       "application/pdf" = ["org.gnome.Evince.desktop"];
       # (X)HTML
       "text/html" = ["firefox.desktop"];
-      "application/xhtml+xml" = ["firefox.desktop"];
       "x-scheme-handler" = ["firefox.desktop"];
       "x-scheme-handler/https" = ["firefox.desktop"];
+      "application/x-extension-htm" = ["firefox.desktop"];
+      "application/x-extension-html" = ["firefox.desktop"];
+      "application/x-extension-shtml" = ["firefox.desktop"];
+      "application/x-extension-xhtml" = ["firefox.desktop"];
+      "application/x-extension-xht" = ["firefox.desktop"];
+      "application/xhtml+xml" = ["firefox.desktop"];
     };
   };
 
