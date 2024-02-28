@@ -11,7 +11,7 @@ highlight: true
 indent_character: '|'
 journals:
   default:
-    journal: /home/lino/Documents/4 Archives/Journal/current.txt
+    journal: /home/lino/Documents/3 Resources/Journal/current.txt
 linewrap: 79
 tagsymbols: '#@'
 template: false
