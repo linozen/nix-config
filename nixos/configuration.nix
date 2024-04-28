@@ -79,35 +79,18 @@
     experimental-features = "nix-command flakes";
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
+    trusted-substituters = [
+      "https://cache.nixos.org"
+      "https://devenv.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+    ];
   };
 
   networking.hostName = "leto";
   networking.networkmanager.enable = true;
-  services.resolved.enable = true;
-
-
-
-  # Mount Synology NFS shares
-  fileSystems."/home/lino/Syno/video" = {
-    device = "100.94.222.31:/volume1/video";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
-  };
-  fileSystems."/home/lino/Syno/audio" = {
-    device = "100.94.222.31:/volume1/audio";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
-  };
-  fileSystems."/home/lino/Syno/archive" = {
-    device = "100.94.222.31:/volume1/archive";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
-  };
-  fileSystems."/home/lino/Syno/pictures" = {
-    device = "100.94.222.31:/volume1/pictures";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto" "x-gvfs-hide" "user" "users"];
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -126,8 +109,9 @@
     # plugins = [ ];
   };
 
-  # Enable Yubikey
-  services.udev.packages = [pkgs.yubikey-personalization pkgs.android-udev-rules];
+  # Enable HW key stuff
+  services.trezord.enable = true;
+  services.udev.packages = [pkgs.yubikey-personalization pkgs.android-udev-rules pkgs.trezor-udev-rules];
   services.pcscd.enable = true;
   security.pam.yubico = {
     enable = true;
@@ -158,6 +142,7 @@
     autoPrune.enable = true;
   };
 
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
   virtualisation = {
     podman = {
       enable = true;
@@ -170,6 +155,8 @@
 
   age.identityPaths = [/persist/home/lino/.ssh/id_ed25519];
   age.secrets.passwordHash.file = ../secrets/passwordHash.age;
+
+  
 
   programs.fish.enable = true;
 

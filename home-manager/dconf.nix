@@ -71,6 +71,15 @@ with lib.hm.gvariant;
       last-window-size = mkTuple [ 652 480 ];
     };
 
+    "org/gnome/Music" = {
+      window-maximized = true;
+    };
+
+    "org/gnome/Totem" = {
+      active-plugins = [ "vimeo" "variable-rate" "skipto" "screenshot" "screensaver" "save-file" "rotation" "recent" "movie-properties" "open-directory" "mpris" "autoload-subtitles" "apple-trailers" ];
+      subtitle-encoding = "UTF-8";
+    };
+
     "org/gnome/baobab/ui" = {
       is-maximized = false;
       window-size = mkTuple [ 960 600 ];
@@ -80,8 +89,14 @@ with lib.hm.gvariant;
       active-view = "month";
     };
 
+    "org/gnome/clocks/state/window" = {
+      maximized = false;
+      panel-id = "world";
+      size = mkTuple [ 870 690 ];
+    };
+
     "org/gnome/control-center" = {
-      last-panel = "power";
+      last-panel = "display";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -106,6 +121,15 @@ with lib.hm.gvariant;
       categories = [ "X-SuSE-YaST" ];
       name = "suse-yast.directory";
       translate = true;
+    };
+
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///home/lino/.local/share/backgrounds/nix-wallpaper-binary-black.png";
+      picture-uri-dark = "file:///home/lino/.local/share/backgrounds/nix-wallpaper-binary-black.png";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
     };
 
     "org/gnome/desktop/calendar" = {
@@ -160,6 +184,18 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Console.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-evince" = {
+      application-id = "org.gnome.Evince.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" = {
+      application-id = "org.gnome.Evolution-alarm-notify.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
+      application-id = "org.gnome.Nautilus.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-world-pikabackup-monitor" = {
       application-id = "org.gnome.World.PikaBackup.Monitor.desktop";
     };
@@ -184,6 +220,14 @@ with lib.hm.gvariant;
       recent-files-max-age = -1;
     };
 
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///home/lino/.local/share/backgrounds/nix-wallpaper-binary-black.png";
+      primary-color = "#000000000000";
+      secondary-color = "#000000000000";
+    };
+
     "org/gnome/desktop/search-providers" = {
       disabled = [ "org.gnome.Epiphany.desktop" ];
       sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" "org.gnome.Characters.desktop" "org.gnome.Weather.desktop" "org.gnome.Epiphany.desktop" ];
@@ -201,6 +245,8 @@ with lib.hm.gvariant;
       switch-applications-backward = [ "<Shift><Alt>Tab" ];
       switch-group = [ "<Alt>grave" ];
       switch-group-backward = [ "<Shift><Alt>grave" ];
+      switch-windows = [ "<Super>Tab" ];
+      switch-windows-backward = [ "<Shift><Super>Tab" ];
       unmaximize = [];
     };
 
@@ -220,10 +266,19 @@ with lib.hm.gvariant;
       sidebar-size = 132;
       sizing-mode = "automatic";
       window-ratio = mkTuple [ 0.712657 1.007861 ];
+      zoom = 0.65767;
     };
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/evolution-data-server/calendar" = {
+      notify-window-height = 279;
+      notify-window-paned-position = 48;
+      notify-window-width = 174;
+      notify-window-x = 26;
+      notify-window-y = 23;
     };
 
     "org/gnome/evolution" = {
@@ -352,7 +407,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" ];
       email = [ "<Super>e" ];
       help = [];
       home = [ "<Super>f" ];
@@ -360,8 +415,14 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>t";
-      command = "tilix";
+      command = "tilix --maximize";
       name = "Launch Tilix";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>n";
+      command = "tilix --maximize --command=nvim";
+      name = "Launch Neovim";
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -409,7 +470,7 @@ with lib.hm.gvariant;
       dynamic-keybinding-behavior = 0;
       enable-advanced-experimental-features = true;
       import-layout-examples = false;
-      last-version-installed = 44;
+      last-version-installed = 46;
       search-popup-layout = [ "<Shift><Alt>l" ];
       tile-bottom-half = [ "<Shift><Alt>s" ];
       tile-bottom-half-ignore-ta = [];
@@ -436,6 +497,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/keybindings" = {
+      focus-active-notification = [];
       show-screenshot-ui = [ "<Shift><Alt>4" ];
     };
 

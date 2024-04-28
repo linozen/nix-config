@@ -138,10 +138,6 @@
     ];
     users.lino = {
       directories = [
-        # Code
-        "Source"
-        # Exocortex
-        "Exocortex"
         # Default
         "Downloads"
         "Music"
@@ -171,6 +167,7 @@
         ".local/share/direnv"
         # Gnome Text Editor
         ".local/share/org.gnome.TextEditor"
+        ".local/share/backgrounds"
         # Z
         ".local/share/z"
         # Neovim
@@ -182,9 +179,12 @@
         ## Evolution (only for CalDav and CardDav)
         ".local/share/evolution"
         ".config/evolution"
+        ## Obsidian
+        ".config/obsidian"
         ## Element
         ".config/Element"
         ## VSCode
+        ".vscode"
         ".config/Code"
         ## MS Teams
         ".config/teams-for-linux"

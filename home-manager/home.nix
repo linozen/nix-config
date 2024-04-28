@@ -14,7 +14,7 @@
     # outputs.homeManagerModules.example
 
     # Or modules exported from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModules.default
+    inputs.agenix.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
     ./dconf.nix
@@ -56,11 +56,12 @@
   };
 
   # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
   home.packages = with pkgs; [
+    cachix
     firefox
     thunderbird
     textsnatcher
+    quickemu
     chromium
     bitwarden
     bitwarden-cli
@@ -71,21 +72,24 @@
     btrfs-assistant
     tilix
     gnome.gnome-terminal
-    unstable.anki
+    trezor-suite
+    anki
     unstable.gnome.gnome-tweaks
     unstable.gnomeExtensions.espresso
     unstable.gnomeExtensions.clipboard-history
-    unstable.gnomeExtensions.tiling-assistant
+    unstable.gnomeExtensions.paperwm
     unstable.gnomeExtensions.appindicator
+    unstable.trayscale
     unstable.teams-for-linux
+    unstable.pdfannots2json
+    unstable.rustdesk
     zotero
+    pandoc
     pika-backup
     inkscape
     gthumb
     libreoffice
     pdfarranger
-    # Music
-    sublime-music
     # JavaScript / TypeScript
     nodejs
     corepack
@@ -93,7 +97,7 @@
     alejandra
     nodePackages.prettier
     black
-    ruff
+    # ruff
     element-desktop
     # Terminal app
     ripgrep
@@ -104,19 +108,24 @@
     papirus-icon-theme
     #
     trash-cli
-    joshuto
-    jrnl
+    minder
+    unstable.obsidian
+    unstable.publii
     # NixVim from https://github.com/linozen/nvim-flake
     inputs.nixvim.packages."${system}".default
     # agenix
     inputs.agenix.packages."${system}".default
   ];
 
-  home.file.".ssh/config".source = ./ssh.conf;
+  # Get secret from agenix
+  age.secrets.sshConfig.file = ../secrets/sshConfig.age;
+  # Since there is no shell interpolation here, it has to be done impurely
+  home.file.".ssh/config".source = "/run/user/1000/agenix/sshConfig";
+
   home.file.".gitconfig".source = ./.gitconfig;
   home.file.".gitconfig.fsfe".source = ./.gitconfig.fsfe;
+
   home.file.".config/tilix/schemes/tokyonight.json".source = ./tilix-tokyonight.json;
-  home.file.".config/jrnl/jrnl.yaml".source = ./jrnl.yaml;
   home.file.".config/pnpm/rc".text = ''
     store-dir=/home/lino/.local/share/pnpm/
   '';
@@ -131,13 +140,18 @@
     EDITOR = "nvim";
   };
 
+  programs.yazi = {
+    package = pkgs.unstable.yazi;
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   # xdg mime
+  xdg.userDirs.music = "${config.home.homeDirectory}/Syno/audio/music";
   xdg.mimeApps = {
     enable = true;
     associations.added = {
-      # PDF
       "application/pdf" = ["org.gnome.Evince.desktop"];
-      # (X)HTML
       "text/html" = ["firefox.desktop"];
       "application/xhtml+xml" = ["firefox.desktop"];
       "application/x-extension-htm" = ["firefox.desktop"];
@@ -154,14 +168,16 @@
       "application/pdf" = ["org.gnome.Evince.desktop"];
       # (X)HTML
       "text/html" = ["firefox.desktop"];
-      "x-scheme-handler" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
       "application/x-extension-htm" = ["firefox.desktop"];
       "application/x-extension-html" = ["firefox.desktop"];
       "application/x-extension-shtml" = ["firefox.desktop"];
       "application/x-extension-xhtml" = ["firefox.desktop"];
       "application/x-extension-xht" = ["firefox.desktop"];
       "application/xhtml+xml" = ["firefox.desktop"];
+      "x-scheme-handler" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+      "x-scheme-handler/chrome" = ["firefox.desktop"];
     };
   };
 
@@ -234,9 +250,15 @@
       set -g fish_pager_color_description $comment
       set -g fish_pager_color_selected_background --background=$selection
 
-      # Aliases
+      # Aliases & Abbreviations
       abbr --add n nvim
       abbr --add c code
+      abbr --add ts sudo tailscale
+
+      # Functions
+      function sync_music
+          rsync -azvhP --delete "/home/lino/Syno/audio/music/" $HOME/Music/
+      end
     '';
   };
   programs.lsd = {
@@ -275,45 +297,8 @@
   programs.vscode = {
     enable = true;
     package = pkgs.unstable.vscode;
-    # Get the thing as reproducible as possible
-    # enableUpdateCheck = false;
-    # enableExtensionUpdateCheck = false;
-    # Otherwise icons fail to load
     mutableExtensionsDir = true;
-    # Settings and keybindings are synced via GitHub
-    extensions = with pkgs; [
-      # Gotta have vim keybindings
-      vscode-marketplace.vscodevim.vim
-      # Gotta at least know what the robots are capable of
-      unstable.vscode-extensions.github.copilot
-      unstable.vscode-extensions.github.copilot-chat
-      # This is just too convenient sometimes
-      vscode-marketplace.ms-vscode-remote.remote-containers
-      vscode-marketplace.ms-vscode-remote.remote-ssh
-      vscode-marketplace.ms-vscode-remote.remote-ssh-edit
-      # Nix
-      vscode-marketplace.mkhl.direnv
-      vscode-marketplace.jnoortheen.nix-ide
-      # Python
-      vscode-marketplace.ms-python.python
-      vscode-marketplace.ms-toolsai.jupyter
-      vscode-marketplace.ms-toolsai.jupyter-renderers
-      vscode-marketplace.ms-toolsai.jupyter-keymap
-      vscode-marketplace.charliermarsh.ruff
-      # CSV
-      vscode-marketplace.mechatroner.rainbow-csv
-      # YAML
-      vscode-marketplace.redhat.vscode-yaml
-      # JavaScript & TypeScript
-      vscode-marketplace.bradlc.vscode-tailwindcss
-      vscode-marketplace.esbenp.prettier-vscode
-      vscode-marketplace.ms-playwright.playwright
-      # Theme and Icons
-      vscode-marketplace.enkia.tokyo-night
-      vscode-marketplace.antfu.icons-carbon
-      # Project manager
-      vscode-marketplace.alefragnani.project-manager
-    ];
+    # Settings, extensions and keybindings are synced via GitHub
   };
 
   qt = {

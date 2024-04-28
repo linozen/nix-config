@@ -7,4 +7,5 @@ let
   lino = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICg8ma28mF3YlbetPZ+eMFMxXbxn8prVYp+wriMcjyGl";
 in {
   "passwordHash.age".publicKeys = [lino];
+  "sshConfig.age".publicKeys = [lino];
 }
