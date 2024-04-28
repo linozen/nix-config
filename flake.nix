@@ -75,6 +75,14 @@
           ./nixos/configuration.nix
         ];
       };
+      koios = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        system = "aarch64-linux";
+        modules = [
+          # > Our main nixos configuration file <
+          ./nixos/koios.nix
+        ];
+      };
     };
   };
 }
