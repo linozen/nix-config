@@ -25,8 +25,6 @@
     nixvim.url = "github:linozen/nvim-flake";
     # Secret management
     agenix.url = "github:ryantm/agenix";
-    # Up-to-date VSCode extension
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions/d1f015cf54328b5c96a6f9d68f615f18ddac9264";
   };
 
   outputs = {

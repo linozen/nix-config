@@ -28,9 +28,6 @@
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
 
-      # VSCodium Extensions
-      inputs.nix-vscode-extensions.overlays.default
-
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -55,7 +52,6 @@
     homeDirectory = "/home/lino";
   };
 
-  # Add stuff for your user as you see fit:
   # Add packages for user
   home.packages = with pkgs; [
     cachix
