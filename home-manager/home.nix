@@ -115,6 +115,8 @@
     inputs.nixvim.packages."${system}".default
     # agenix
     inputs.agenix.packages."${system}".default
+    # devenv
+    unstable.devenv
   ];
 
   # Get secret from agenix
