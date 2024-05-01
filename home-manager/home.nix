@@ -56,6 +56,7 @@
   };
 
   # Add stuff for your user as you see fit:
+  # Add packages for user
   home.packages = with pkgs; [
     cachix
     firefox
@@ -72,6 +73,7 @@
     btrfs-assistant
     tilix
     gnome.gnome-terminal
+    gnome-solanum
     trezor-suite
     anki
     unstable.gnome.gnome-tweaks
