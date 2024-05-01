@@ -144,8 +144,6 @@
         "Pictures"
         "Documents"
         "Videos"
-        # Synology share
-        "Syno"
         # Zotero
         "Zotero"
         ".zotero"
