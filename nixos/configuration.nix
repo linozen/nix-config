@@ -113,6 +113,13 @@
     # plugins = [ ];
   };
 
+  # Enable Hyprland
+  programs.hyprland = {
+    enable = true;
+  };
+  # Hint electron apps to use wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Enable HW key stuff
   services.trezord.enable = true;
   services.udev.packages = [pkgs.yubikey-personalization pkgs.android-udev-rules pkgs.trezor-udev-rules];
@@ -160,6 +167,7 @@
   age.identityPaths = [/persist/home/lino/.ssh/id_ed25519];
   age.secrets.passwordHash.file = ../secrets/passwordHash.age;
 
+  services.xserver.xkb.options = "caps:swapescape";
   programs.fish.enable = true;
 
   users.mutableUsers = false;
